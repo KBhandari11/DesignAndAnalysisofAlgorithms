@@ -11,7 +11,7 @@ def printing(X,name):
   for i in range(n): 
       for j in range(n): 
           print(X[i][j], end = "\t\t");  
-      print("");
+      print("")
 def luDecomposition(mat):
     n = np.shape(mat)[1]
     lower = np.zeros((n,n))
@@ -67,7 +67,16 @@ def lupSolve(L,U,pi,b):
   for i in range(n-1, -1, -1):
     x[i]=(y[i]-sum([U[i][j]*x[j] for j in range(i+1,n)]))/U[i][i]
   return x
-'''
+def LUPInverse(mat):
+  b=[[1,0,0],
+  [0,1,0],
+  [0,0,1]]
+  L, U, pi = lupDecomposition(mat)
+  x = np.zeros(np.shape(mat))
+  for i in range(np.shape(b)[0]):
+    x[i,:] = lupSolve(L,U,pi,np.array(b)[i,:])
+  return(x.T)
+
 
 mat = [[2, 3, 1, 5], 
        [6, 13, 5, 19],
@@ -84,21 +93,15 @@ mat = [[2, 0, 2, 0.6],
 L, U, pi = lupDecomposition(mat)
 printing(L," LU Decomposition L ")
 printing(U, " LU Decomposition U ")
-'''
-mat=[[1,2,0],
-    [3,4,4],
-    [5,6,3]]
-b=[3,7,8]
-L, U, pi = lupDecomposition(mat)
-printing(L," LU Decomposition L ")
-printing(U, " LU Decomposition U ")
-x = lupSolve(L,U,pi,b)
-print(x)
 
-'''
+mat=[[25,5,1],
+    [64,8,1],
+    [144,12,1]]
+inv = LUPInverse(mat)
+printing(inv,"Inverse")
+
 mat = [[-3, -1, -3], 
        [3, 2, 3],
        [2, 1, 2]]; 
 L,U, pi = lupDecomposition(mat)
 printing(P, " LUP Decomposition P ")
-'''
